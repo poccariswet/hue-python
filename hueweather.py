@@ -1,7 +1,7 @@
 #!/usr/bin/python
 # coding: utf-8
 from phue import Bridge
-# import random
+import random
 import json, urllib2
 import time
 
@@ -11,10 +11,10 @@ b = Bridge('192.168.2.2')
 # If the app is not registered and the button is not pressed,
 # press the button and call connect() (this only needs to be run a single time)
 b.connect()
-
 # b.set_light([1,2,3], 'on', False) #lights OFF!
 
 #ここから！!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+# def weather():
 url = 'http://weather.livedoor.com/forecast/webservice/json/v1?city=070030'
 try:
     r = urllib2.urlopen(url)
@@ -25,34 +25,41 @@ try:
 
     forecasts = root['forecasts']
     print '    dateLabel=' + forecasts[0]['dateLabel'] + ',telop=' + forecasts[0]['telop'] + ',date=' + forecasts[0]['date']
-    if forecasts[0]['telop']==u'晴時々雨':
+    if forecasts[0]['telop']==u'雨のち晴':
         b.set_light([1,2], 'on', True)
         b.set_light([1,2], 'bri', 10)
         # b.set_light([1,2,3] 'bri', 10)
         lights = b.get_light_objects()
-        lights[0].xy = [1, 1]
-        time.sleep(0.5)
-        lights[0].xy = [0.1, 0]
-        time.sleep(0.5)
-        lights[0].xy = [1, 1]
-        time.sleep(0.5)
-        lights[0].xy = [0.1, 0]
-        time.sleep(0.5)
-        lights[0].xy = [1, 1]
-        time.sleep(0.5)
-        lights[0].xy = [0.1, 0]
-        time.sleep(0.5)
-        lights[0].xy = [1, 1]
-        time.sleep(0.5)
-        lights[0].xy = [0.1, 0]
-        time.sleep(0.5)
-        lights[0].xy = [1, 1]
-        time.sleep(0.5)
-        lights[0].xy = [0.1, 0]
-        time.sleep(0.5)
-        lights[0].xy = [1, 1]
-        time.sleep(0.5)
-        lights[0].xy = [0.1, 0]
+        for i in range(30):
+            lights[0].xy = [0.1, 0]
+            lights[1].xy = [0.1, 0]
+            time.sleep(0.5)
+            lights[0].xy = [1, 1]
+            lights[1].xy = [1, 1]
+            time.sleep(0.5)
+            lights[2].xy = [random.random(), random.random()]
+
+        # lights[0].xy = [0.1, 0]
+        # time.sleep(0.5)
+        # lights[0].xy = [1, 1]
+        # time.sleep(0.5)
+        # lights[0].xy = [0.1, 0]
+        # time.sleep(0.5)
+        # lights[0].xy = [1, 1]
+        # time.sleep(0.5)
+        # lights[0].xy = [0.1, 0]
+        # time.sleep(0.5)
+        # lights[0].xy = [1, 1]
+        # time.sleep(0.5)
+        # lights[0].xy = [0.1, 0]
+        # time.sleep(0.5)
+        # lights[0].xy = [1, 1]
+        # time.sleep(0.5)
+        # lights[0].xy = [0.1, 0]
+        # time.sleep(0.5)
+        # lights[0].xy = [1, 1]
+        # time.sleep(0.5)
+        # lights[0].xy = [0.1, 0]
 finally:
     r.close()
 #ここまで!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
