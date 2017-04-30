@@ -32,8 +32,8 @@ def Tenki(event):
             b.set_light([1,2], 'bri', 80)
             lights = b.get_light_objects()
             lights[2].xy = [0, 0.7]
-            lights[0].xy = [0.9, 0]
-            lights[1].xy = [0.9, 0]
+            lights[0].xy = [1, 1]
+            lights[1].xy = [1, 1]
 
         elif forecasts[0]['telop']==u'雨':
             b.set_light([1,2,3], 'on', True)
@@ -332,18 +332,73 @@ def radiation(event):
         lights[1].xy = [0.5, 0.5]
         print '多分大丈夫'
 
+def awakening(event):
+    b.set_light([1,2,3], 'on', True)
+    lights = b.get_light_objects()
+    b.set_light([1,2], 'bri', 10)
+    lights[2].xy = [0.5, 0.5]
+    for i in range(5):
+        lights[0].xy = [1, 1]
+        lights[1].xy = [1, 1]
+        time.sleep(0.5)
+        lights[0].xy = [0.0, 0.0]
+        lights[1].xy = [0.0, 0.0]
+        time.sleep(0.5)
+
+
+    b.set_light([1,2,3], 'on', False)
+    time.sleep(3.0)
+    b.set_light([1,2], 'on', True)
+    lights[0].xy = [1, 0]
+    lights[1].xy = [1, 0]
+    for i in range(5):
+        # b.set_light([1,2], 'on', True)
+        # lights[0].xy = [1, 0]
+        # lights[1].xy = [1, 0]
+        b.set_light([1,2], 'bri', 254)
+        time.sleep(0.5)
+        b.set_light([1,2], 'bri', 10)
+        time.sleep(0.5)
+    lights[0].xy = [0.50, 0]
+    lights[1].xy = [0.50, 0]
+
+def hueoff(event):
+    b.set_light([1,2,3], 'on', False)
+
+def hueon(event):
+    b.set_light([1,2,3], 'on', True)
+    b.set_light([1,2,3], 'bri', 10)
+    lights = b.get_light_objects()
+    lights[0].xy = [0.3, 0.3]
+    lights[1].xy = [0.3, 0.3]
+    lights[2].xy = [0.3, 0.3]
+
+def modeEn(event):
+    print 1234
 
 
 Button = Tkinter.Button(text=u'天気', width=7)
 Button.bind("<Button-1>",Tenki)
-Button.place(x=40, y=100)
+Button.place(x=40, y=120)
 Button = Tkinter.Button(text=u'PM2.5', width=7)
 Button.bind("<Button-1>",PM)
-Button.place(x=150, y=100)
+Button.place(x=150, y=120)
 Button = Tkinter.Button(text=u'花粉', width=7)
 Button.bind("<Button-1>",kahun)
-Button.place(x=260, y=100)
+Button.place(x=150, y=200)
 Button = Tkinter.Button(text=u'放射線', width=7)
 Button.bind("<Button-1>",radiation)
 Button.place(x=40, y=200)
+Button = Tkinter.Button(text=u'覚醒', width=7)
+Button.bind("<Button-1>",awakening)
+Button.place(x=260, y=200)
+Button = Tkinter.Button(text=u'ON', width=7)
+Button.bind("<Button-1>",hueon)
+Button.place(x=40, y=40)
+Button = Tkinter.Button(text=u'OFF', width=7)
+Button.bind("<Button-1>",hueoff)
+Button.place(x=150, y=40)
+Button = Tkinter.Button(text=u'English', width=7)
+Button.bind("<Button-1>",modeEn)
+Button.place(x=260, y=40)
 root.mainloop()
